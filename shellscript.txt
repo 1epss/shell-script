@@ -1,0 +1,7 @@
+Hello World
+Our shell name is /bin/bash
+Our shell version name is 5.2.15(1)-release
+Our home directory is /home/gyuu
+Our current working directory is /home/gyuu/bin
+The name is Mark
+value 10
