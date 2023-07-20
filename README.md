@@ -1,4 +1,4 @@
 # shell-script
 shell-script files for 2023 Linux seminar
 
-source : https://youtube.com/playlist?list=PLS1QulWo1RIYmaxcEqw5JhK3b-6rgdWO_
+based on Shell Scripting Tutorial (https://youtu.be/cQepf9fY6cE) for Beginners by ProgrammingKnowledge 
