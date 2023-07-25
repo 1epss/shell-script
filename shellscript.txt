@@ -1,7 +1,203 @@
-Hello World
-Our shell name is /bin/bash
-Our shell version name is 5.2.15(1)-release
-Our home directory is /home/gyuu
-Our current working directory is /home/gyuu/bin
-The name is Mark
-value 10
+1
+	변수 불러올 때는 $변수
+	변수는 숫자로 시작할 수 없음
+	
+2
+	input : read 변수 (출력하고 싶으면 그냥 echo $변수)
+		read -p '출력' 변수 : 같은 줄에서 input 넣어버리기
+		read -s : 쓰는 내용 안 보이게
+		read -a : 변수 array형태로 받기
+			  array니까 출력시에는 ${변수[인덱스]}
+		read -r : 백슬래시 번역되는거 막아줌
+		read에 변수 안 받아줘도 $REPLY (시스템 변수?)로 입력값 출력 가능
+		
+3
+	args=("$@") sh파일 실행시 옆에 변수 리스트 받아서 array로?
+		$# : 입력받은 argument 개수
+		
+4
+	if statement
+	
+	if [ condition ] or ((condition)) or string 비교에는 [[ condition ]]
+	then
+		statement
+	elif
+	then
+		statement
+	else
+		statement
+	fi	
+	
+	조건문에 들어가는 비교 연산 옵션 
+		-eq
+		-ne
+		-gt
+		-ge
+		-lt
+		-le
+		
+5	
+	-e : \blabla 해석하기 위해서
+	\c : 커서 똑같은 줄에:
+	
+	if [ -e ] : 파일 존재 여부 체크 (exist)
+	if [ -f ]
+	if [ -d ]
+	
+	if [ -c ]
+	if [ -b ]
+	if [ -s ]
+	if [ -r ]
+	if [ -w ]
+	if [ -x ]
+	
+7
+	And operator
+	if [ ] && [ ]
+	if [ condition -a condition ]
+	if [[ condition && condition ]]
+	
+8
+	Or operator
+	if [ ] || [ ]
+	if [ condition -o condition ]
+	if [[ condition || condition ]]
+	
+9	
+	arithmetric operations
+	$(( + / - / * / / / % ))
+	$(expr + / - / \* / / / & )
+	
+10
+	변수가 decimal(소수점)이면 위 방법으로 X
+	"수식" | bc  : bc command에 "수식" 입력값)
+	"scale=n;수식" : 소숫점 아래 숫자, 나누기 할 때마다 scale 입력
+	"수식" | bc -l : import math library
+		"scale=3;sqrt($num)"
+		
+11
+	case - esac statement
+	case $variable in
+		"ex1")              # 정규표현식 문법도 들어갈 수 있음
+		command ;;
+		"ex2")
+		command ;;
+		*) 
+		command	;;
+	esac
+	
+
+13
+	array=('1' '2' '3')
+	"${os[@]}" : 전체 array 출력
+	"${!os[@]}" : 인덱스 출력
+	"${#os[@]}" : len(array) 출력
+	
+	array[n]='hi' : append
+	unset array[n] : remove
+	
+	string도 array처럼 볼 수 있음 (파이썬이랑 동일)
+	
+14
+	While loops
+	while [ ] or (( ))
+	do
+		command
+		(( ))
+		# sleep n : n초동안 잠
+		# gnome-terminal & : 터미널 열기
+	done
+	
+16
+	터미널에서 파일 내용 읽기
+	
+	while read variable
+	do
+		echo $variable
+	done < currentfile
+	
+	cat currentfile | while read variable
+	do
+		echo $variable
+	done
+	
+	IFS : 파일 내용 구분자 설정
+	while IFS= read variable (=뒤에 스페이스를 줘서 read를 IFS로 받아주는 게 아니고 공백을 받아줌)
+	do 
+		echo $variable
+	done
+	
+17
+	Until loop
+	until [ ]
+	do
+		echo
+		(( ))
+	done
+	
+18
+	For loop
+	for i in 1 2 3 4 5 or {1..5..n}     or     for (( i=0; i<5; i++ ))      (js 처럼)
+	do
+		command
+	done	 
+	
+20
+	Select loop	
+	Select i in 1 2 3 4
+	do 
+		command
+	done
+	
+	1 2 3 4에 넣어준 변수 말고 그냥 number입력
+	
+21
+	Break / Continue
+	파이썬이랑 다를거 없음 break는 반복문 바로 탈출 continue는 바로 다음 루프로
+	
+	for
+	do
+		if
+		then
+			break / continue
+		fi
+	done
+	
+22
+	function
+	function Hello(){
+		command
+	}
+		
+	Hello () {
+		command
+	}
+	
+23
+	local / global variable
+	
+	function a(){
+		name=$1
+		echo "$name"
+	}
+	name="Tom"
+	echo "$name"
+	print Jim
+	echo "$name"
+				
+	function a(){
+		local name=$1
+		echo "$name"
+	}
+	name="Tom"
+	echo "$name"
+	print Jim
+	echo "$name"
+	
+	파이썬이랑 다르게 local 변수 넣어주지 않으면 전역변수로 넘어가버리는 듯?
+	local 넣어주면 그냥 지역변수로
+	
+25
+	[[ -f "$1" ]] && return 0 || return 1
+	if file exists we'll get the 1
+	
